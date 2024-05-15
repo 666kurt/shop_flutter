@@ -25,6 +25,7 @@ class ShopScreen extends StatelessWidget {
         ),
       ),
       body: ListView.builder(
+        padding: EdgeInsets.only(bottom: 30),
         scrollDirection: Axis.horizontal,
         itemCount: products.length,
         itemBuilder: (context, index) {

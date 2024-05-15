@@ -1,10 +1,35 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter_shop/widgets/custom_button.dart';
+import 'package:provider/provider.dart';
 import '../models/product_model.dart';
+import '../service/product_service.dart';
 
 class ProductTile extends StatelessWidget {
   final Product product;
   const ProductTile({super.key, required this.product});
+
+  void addToCart(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => CupertinoAlertDialog(
+        content: Text('Add this item to cart?'),
+        actions: [
+          CupertinoButton(
+            child: Text('Add'),
+            onPressed: () {
+              Navigator.pop(context);
+              context.read<Shop>().addToCart(product);
+            },
+          ),
+          CupertinoButton(
+            child: Text('Cancel'),
+            onPressed: () => Navigator.pop(context),
+          ),
+        ],
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -22,9 +47,7 @@ class ProductTile extends StatelessWidget {
           AspectRatio(
             aspectRatio: 1,
             child: Container(
-              child: Icon(
-                Icons.heart_broken_sharp,
-              ),
+              child: Image.asset(product.imagePath),
               padding: EdgeInsets.all(25),
               width: double.infinity,
               decoration: BoxDecoration(
@@ -51,7 +74,16 @@ class ProductTile extends StatelessWidget {
             ),
           ),
           Spacer(),
-          Text(product.price.toString()),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("\$${product.price.toString()}"),
+              CustomButton(
+                icon: Icon(Icons.add),
+                onPressed: () => addToCart(context),
+              )
+            ],
+          ),
         ],
       ),
     );

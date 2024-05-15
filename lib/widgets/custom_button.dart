@@ -16,9 +16,9 @@ class CustomButton extends StatelessWidget {
       highlightColor: Colors.transparent,
       onPressed: onPressed,
       icon: Container(
-        padding: EdgeInsets.all(25),
+        padding: EdgeInsets.all(18),
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.secondary,
+          color: Theme.of(context).colorScheme.tertiary,
           borderRadius: BorderRadius.circular(12),
         ),
         child: icon,
